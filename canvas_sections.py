@@ -1,6 +1,20 @@
 #!/usr/bin/python
 # read in file convert to canvas format
 
+# Select sections in PowerSchool DDA, export with these fields,
+# Tab-delimited, LF record delimiter:
+#
+# ID
+# Schoolid
+# Termid
+# Expression
+# Course_Number
+# Section_Number
+# [02]Name
+# [05]TeacherNumber
+#
+# Save as sections.txt
+
 import csv
 import re
 

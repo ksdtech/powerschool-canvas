@@ -1,6 +1,18 @@
 #!/usr/bin/python
 # read in file convert to canvas format
 
+# Select students in PowerSchool DDA, export with these fields,
+# Tab-delimited, LF record delimiter:
+#
+# Student_Number
+# Network_ID (our custom field for usernames)
+# Network_Password (our custom field for passwords)
+# First_Name
+# Last_Name
+# Nickname
+#
+# Save as students.txt
+
 import csv
 import re
 
