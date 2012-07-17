@@ -14,6 +14,9 @@
 # [05]TeacherNumber
 #
 # Save as sections.txt
+#
+# Also requires terms.csv file that gives term IDs with start and end dates.
+# See terms.csv.example for a sample file.
 
 import csv
 import re
