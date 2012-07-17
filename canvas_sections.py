@@ -68,20 +68,30 @@ with open('py_enrollments.csv', 'wb') as ef:
           course_id = 'C' + row['course_number'] + '-' + str(term_id)
           term_id   = 'T' + str(term_id)
           if course_id not in course_ids:
+            # New course encountered - write the course to the course file
+            course_ids[course_id] = 1
+            
+            # Put course in an account based on the SchoolID
+            account_id = 'A' + row['schoolid']
+            
+            # Construct course short name with first 4 chars of subject
+            # and grade level if any (from last word in long name)
             course_parts = row['name'].split()
             short_name = course_parts[0][0:4].upper()
             if re.match('[K1-8]', course_parts[-1]):
               short_name = short_name + course_parts[-1]
-            course_ids[course_id] = 1
+            
             crow = { }
             crow['course_id']  = course_id
             crow['short_name'] = short_name
             crow['long_name']  = row['name']
-            crow['account_id'] = 'A' + row['schoolid']
+            crow['account_id'] = account_id
             crow['term_id']    = term_id
             crow['status']     = 'active'
             courses.writerow(crow)
+            
           if term_id in terms:
+            # write the section to the section file
             section_id = section_prefix + row['id']
             srow = { }
             srow['section_id'] = section_id
@@ -91,6 +101,8 @@ with open('py_enrollments.csv', 'wb') as ef:
             srow['start_date'] = terms[term_id]['start_date']
             srow['end_date']   = terms[term_id]['end_date']
             sections.writerow(srow)
+            
+            # write the teacher for the section to the enrollment file
             trow = { }
             trow['course_id']  = course_id
             trow['user_id']    = 'U' + row['teachernumber']
